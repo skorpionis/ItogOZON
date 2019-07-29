@@ -11,10 +11,9 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+
+import java.util.*;
+
 import static Pages.BasePageClass.setMAP;
 /**
  * Created by Ariec on 27.07.2019.
@@ -61,50 +60,40 @@ public class CucumberSteps  {
             e.printStackTrace();
         }
     }
+
     @Допустим("Выбираем марку из списка")
-    public void chooseMark(Set<String> set){
+    public void chooseMark(List<String> set){
         ozonGoodsPage.chooseMark(set);
     }
+
+  /*  @Допустим("Выбираем марку из списка {string} {string}")
+    public void selectBrands(String s1, String s2) throws InterruptedException {
+        ozonGoodsPage.click(ozonGoodsPage.posmVse);
+        Thread.sleep(3000);
+        ozonGoodsPage.click(ozonGoodsPage.strPoisk);
+        ozonGoodsPage.writeValue(ozonGoodsPage.strPoisk, s1);
+        Thread.sleep(3000);
+        ozonGoodsPage.strPoisk.clear();
+        Thread.sleep(3000);
+        ozonGoodsPage.click(ozonGoodsPage.strPoisk);
+        Thread.sleep(3000);
+        ozonGoodsPage.writeValue(ozonGoodsPage.strPoisk, s2);
+        Thread.sleep(3000);
+    }*/
+
 
     @Тогда("Добавляем 8 {string} товаров")
     public void addingToBasket(String chet) {
         String s = "нечетных";
-        int i,j;
+        int j,k;
         if (ozonGoodsPage.allGoodsOnPage.size() > 17){
-            i = 16;
+            k = 16;
         }
-        else {i = ozonGoodsPage.allGoodsOnPage.size();
+        else {k = ozonGoodsPage.allGoodsOnPage.size();
         }if (chet.equals(s)) { j = 0;
         } else { j = 1;
         }
-        for (int k = j; k < i; i += 2) {
-            String xpathPriceProduct = String.format(
-                    "//div[@data-index='%s']//span[@data-test-id='tile-price']", k);
-            int prodPrice = Integer.parseInt(DriverManager.getDriver().findElement(By.
-                    xpath(xpathPriceProduct)).getText().replaceAll("\\D", ""));
-            String pathProd = String.format(
-                    "//div[@data-index='%s']//a[@id='name']", k);
-            String prodName = DriverManager.getDriver().findElement(By.xpath(pathProd)).getText();
-            setMAP(prodName, prodPrice);
-            String xpathInBasket = String.format(
-                    "//div[@data-index='%s']//span[contains(text(), 'В корзину')]", k);
-            WebElement add = DriverManager.getDriver().findElement(By.xpath(xpathInBasket));
-            ozonGoodsPage.jsScroll(add);
-        }
-    }
-    @Тогда("Добавим 4 {string} товаров")
-    public void addingToBasketHandPhones(String chet) {
-        String s = "нечетных";
-        int i,j;
-        if (ozonGoodsPage.allGoodsOnPage.size() > 17){
-            i = 16;
-        }
-        else {i = ozonGoodsPage.allGoodsOnPage.size();
-        }if (chet.equals(s)) { j = 0;
-        } else { j = 1;
-        }
-        for (int k = j; k < i; i += 2)
-        {
+        for (int i = j; i < k; i = i + 2) {
             String xpathPriceProduct = String.format(
                     "//div[@data-index='%s']//span[@data-test-id='tile-price']", k);
             int prodPrice = Integer.parseInt(DriverManager.getDriver().findElement(By.

@@ -30,21 +30,33 @@ public class OzonGoodsPage extends BasePageClass {
     public List<WebElement> allGoodsOnPage;
     @FindBy(xpath = "//span[contains(text(), 'Корзина')]")
     public WebElement basketClick;
+    @FindBy(xpath = "//*[contains(text(),'Бренды')]/parent::div[1]//span[contains(text(),'Посмотреть все')]")
+    public WebElement posmVse;
+    @FindBy(xpath = "//*[@class='search-form']//input")
+    public WebElement strPoisk;
     @FindBy(xpath = "//span[@class='show'][1]")
     public WebElement seeAllBrands;
     @FindBy(xpath = "//div[@class='input-wrap search-input m-low-height']/input")
     public WebElement searchBrandField;
     public Map<String,Integer> map = new HashMap<String,Integer>();
 
-    public void chooseMark(Set<String > marks){
+    public void chooseMark(List<String > marks){
         js.executeScript("return arguments[0].scrollIntoView(true);", seeAllBrands);
         click(seeAllBrands);
         String elements = "//div[@class='active-filters']/descendant::span[contains(text(), '%s')]";
         for (String s: marks) {
             click(searchBrandField);
-            fillTextField(searchBrandField,s);
+            fillTextField(searchBrandField,s + "\n");
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(elements, s))));
         }
+    }
+
+    public WebElement getStrPoisk() {
+        return strPoisk;
+    }
+
+    public WebElement getPosmVse() {
+        return posmVse;
     }
 
     public WebElement getBasketClick() {

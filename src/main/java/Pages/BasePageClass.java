@@ -42,6 +42,7 @@ public class BasePageClass {
     public static Integer getMAP(String key) {
         return MAP.get(key);
     }
+
     public void click(WebElement element) {
         wait.until(ExpectedConditions.elementToBeClickable(element)).click();
     }
@@ -65,6 +66,11 @@ public class BasePageClass {
         }Assert.fail(String.format("Net elementa na stranice %s ",x));
         return null;
     }
+    public void writeValue(WebElement element, String keys){
+        wait.until(ExpectedConditions.visibilityOf(element));
+        element.sendKeys(keys);
+    }
+
    /* public String getText(WebElement path, int a){
         WebElement element = DriverManager.getDriver().findElement(By.xpath(String.format(path,a)));
         return element.getText();
