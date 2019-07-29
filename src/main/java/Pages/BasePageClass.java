@@ -2,20 +2,16 @@ package Pages;
 
 
 import Driver.DriverManager;
+import io.qameta.allure.Attachment;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static Driver.DriverManager.getDriver;
 
@@ -66,6 +62,14 @@ public class BasePageClass {
         }Assert.fail(String.format("Net elementa na stranice %s ",x));
         return null;
     }
+    @Attachment(value = "Error screenshot", type = "image/png")
+    public byte[] takeScreenshot() {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    }
+
+
+
+
     public void writeValue(WebElement element, String keys){
         wait.until(ExpectedConditions.visibilityOf(element));
         element.sendKeys(keys);

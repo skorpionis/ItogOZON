@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by Ariec on 27.07.2019.
@@ -28,6 +27,9 @@ public class OzonGoodsPage extends BasePageClass {
      public WebElement cena;
     @FindBy(xpath = "//div[@class='tiles']/*")
     public List<WebElement> allGoodsOnPage;
+
+    @FindBy(xpath = "//div[@class='content']/descendant::*[contains(text(), 'Корзина')]")//h1
+    private WebElement basketStr;
     @FindBy(xpath = "//span[contains(text(), 'Корзина')]")
     public WebElement basketClick;
     @FindBy(xpath = "//*[contains(text(),'Бренды')]/parent::div[1]//span[contains(text(),'Посмотреть все')]")
@@ -49,6 +51,10 @@ public class OzonGoodsPage extends BasePageClass {
             fillTextField(searchBrandField,s + "\n");
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath(String.format(elements, s))));
         }
+    }
+
+    public WebElement getBasketStr() {
+        return basketStr;
     }
 
     public WebElement getStrPoisk() {

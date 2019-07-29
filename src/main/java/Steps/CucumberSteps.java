@@ -5,7 +5,8 @@ import Pages.BasePageClass;
 import Pages.OzonBasketPage;
 import Pages.OzonGoodsPage;
 import Pages.OzonMainPage;
-import cucumber.api.java.en.When;
+import cucumber.api.Scenario;
+import cucumber.api.java.After;
 import cucumber.api.java.ru.*;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -23,6 +24,23 @@ public class CucumberSteps  {
     private OzonGoodsPage ozonGoodsPage = new OzonGoodsPage();
     private OzonMainPage ozonMainPage = new OzonMainPage();
     private StringBuilder stringB = new StringBuilder();
+
+
+
+
+
+    @After
+    public void close(Scenario scenario) {
+        if (scenario.isFailed()) {
+            ozonMainPage.takeScreenshot();
+            ozonGoodsPage.basketClickk();
+            String s1 = ozonGoodsPage.getBasketStr().getText();
+            if (!s1.equals("Корзина пуста")) {
+                cleaningBasket();
+            }
+        }
+        DriverManager.CloseDriver();
+    }
 
     @Дано("Переход по ссылке {string}")
     public void startTesting(String URL){
@@ -78,9 +96,8 @@ public class CucumberSteps  {
         ozonGoodsPage.click(ozonGoodsPage.strPoisk);
         Thread.sleep(3000);
         ozonGoodsPage.writeValue(ozonGoodsPage.strPoisk, s2);
-        Thread.sleep(3000);
+        Thread.sleep(3000);   //то работает то нет
     }*/
-
 
     @Тогда("Добавляем 8 {string} товаров")
     public void addingToBasket(String chet) {

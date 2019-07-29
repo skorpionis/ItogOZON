@@ -1,13 +1,8 @@
 package Pages;
 
-import cucumber.api.java.sl.In;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Ariec on 27.07.2019.
@@ -64,20 +59,5 @@ public class OzonBasketPage extends BasePageClass {
         click(removeCurrent);
         click(confirmDelBtn);
     }
-
-    public Map<String, String> cartItems(){
-        String itemName;
-        String itemPrice;
-        if(list.isEmpty()){return null;}
-
-        Map<String,String> map = new HashMap<String,String >();
-        for (WebElement element: list) {
-            itemName = element.findElement(By.xpath("//a[@data-test-id='cart-item-title']")).getText();
-            itemPrice = element.findElement(By.xpath("//span[@data-test-id='original-price-of-item-in-cart']")).getText();
-                map.put(itemName,itemPrice);
-        }return map;
-    }
-
-
 
 }
